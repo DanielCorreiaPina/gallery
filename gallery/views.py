@@ -26,3 +26,9 @@ def upload(request):
     else:
         form = ImageForm()
     return render(request, 'gallery/upload.html', {'form': form})
+
+def delete_item(request, image_id):
+    image = Image.objects.get(pk=image_id).delete()
+    image_list = Image.objects.all()
+    context = {'image_list': image_list}
+    return render(request, 'gallery/index.html', context)
