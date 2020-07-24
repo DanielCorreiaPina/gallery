@@ -10,11 +10,6 @@ def index(request):
     return render(request, 'gallery/index.html', context)
 
 def details(request, image_id):
-    """ try:
-        image = Image.objects.get(pk=image_id)
-    except Image.DoesNotExist:
-        raise Http404("Image does not exist")
-    return render(request, 'gallery/details.html', {'image': image}) """
     image = get_object_or_404(Image, pk=image_id)
     return render(request, 'gallery/details.html', {'image': image})
 
