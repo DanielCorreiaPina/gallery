@@ -18,10 +18,15 @@ def upload(request):
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            # Get the current instance object to display in the template
-            img_obj = form.instance
-            return render(request, 'gallery/upload.html', {'form': form, 'img_obj': img_obj})
+            image_title_exists = Image.objects.filter(title=form.cleaned_data['title']).exists()
+            if image_title_exists:
+                error = 'There is an image with "' + form.cleaned_data['title'] + '" as title already, choose other title'
+                return render(request, 'gallery/upload.html', {'form': form, 'error': error})
+            else:
+                form.save()
+                # Get the current instance object to display in the template
+                img_obj = form.instance
+                return render(request, 'gallery/upload.html', {'form': form, 'img_obj': img_obj})
     else:
         form = ImageForm()
     return render(request, 'gallery/upload.html', {'form': form})
