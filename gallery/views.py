@@ -18,6 +18,7 @@ def upload(request):
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
+            # Check if there is any image in the DB with the same title
             image_title_exists = Image.objects.filter(title=form.cleaned_data['title']).exists()
             if image_title_exists:
                 error = 'There is an image with "' + form.cleaned_data['title'] + '" as title already, choose other title'
