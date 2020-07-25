@@ -7,15 +7,14 @@ from .models import Image
 
 def index(request):
     image_list = Image.objects.all()
-    context = {'image_list': image_list}
-    return render(request, 'gallery/index.html', context)
+    return render(request, 'gallery/index.html', {'image_list': image_list})
 
 def details(request, image_id):
     image = get_object_or_404(Image, pk=image_id)
     return render(request, 'gallery/details.html', {'image': image})
 
 def upload(request):
-    """Process images uploaded by users"""
+    # Process images uploaded by users# 
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
@@ -30,5 +29,4 @@ def upload(request):
 def delete_item(request, image_id):
     image = Image.objects.get(pk=image_id).delete()
     image_list = Image.objects.all()
-    context = {'image_list': image_list}
-    return render(request, 'gallery/index.html', context)
+    return render(request, 'gallery/index.html', {'image_list': image_list})

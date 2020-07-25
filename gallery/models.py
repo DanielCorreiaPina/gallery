@@ -5,3 +5,8 @@ class Image(models.Model):
     title = models.CharField(max_length=20)
     def __str__(self):
         return self.title
+    
+    # Override the delete method
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super().delete(*args, **kwargs)
