@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('gallery/', include('gallery.urls')),
+    path('', include('gallery.urls')),
     path('admin/', admin.site.urls),
 ]
 
